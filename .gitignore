@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+
+# Secrets — never commit
+.env
+*.pem
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Playwright / test artifacts
+playwright-report/
+test-results/
+.env
+.env.*
+html_cache/
+html_cache/*
+*_shein.html
+out.html
+shein.html
+zara.html
+zara_2.html

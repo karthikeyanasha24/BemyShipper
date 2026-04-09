@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BeMyShipper — Project Checklist</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f5f7;
+      --card: #ffffff;
+      --accent: #0071e3;
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --border: #d2d2d7;
+      --done-bg: #f0faf4;
+      --done-border: #34c759;
+      --todo-bg: #fff9f0;
+      --todo-border: #ff9f0a;
+      --wip-bg: #f0f5ff;
+      --wip-border: #0071e3;
+      --radius: 14px;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    header h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; }
+    header p { color: var(--muted); margin-top: 8px; font-size: 0.95rem; }
+    .updated { color: var(--accent); font-weight: 600; font-size: 0.85rem; margin-top: 6px; }
+
+    /* Summary bar */
+    .summary {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .summary-pill {
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .pill-done  { background: #d4f7e2; color: #1a7f3c; }
+    .pill-wip   { background: #ddeeff; color: #0051a0; }
+    .pill-todo  { background: #fff0d4; color: #9a5700; }
+
+    /* Phase blocks */
+    .phase {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
+      overflow: hidden;
+    }
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: #fafafa;
+    }
+    .phase-title { font-weight: 700; font-size: 1rem; }
+    .phase-status-badge {
+      margin-left: auto;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-done  { background: #d4f7e2; color: #1a7f3c; }
+    .badge-wip   { background: #ddeeff; color: #0051a0; }
+    .badge-todo  { background: #fff0d4; color: #9a5700; }
+    .badge-partial { background: #fde8ff; color: #7a0099; }
+
+    .phase-body { padding: 16px 20px; }
+
+    /* Checklist items */
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+    .item:last-child { margin-bottom: 0; }
+    .item.done  { background: var(--done-bg); border-left: 3px solid var(--done-border); }
+    .item.todo  { background: var(--todo-bg); border-left: 3px solid var(--todo-border); }
+    .item.wip   { background: var(--wip-bg);  border-left: 3px solid var(--wip-border); }
+
+    .item-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .item-text { flex: 1; }
+    .item-note {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    /* Phase number circle */
+    .phase-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .phase-num.complete { background: #34c759; }
+    .phase-num.partial  { background: #9c27b0; }
+    .phase-num.pending  { background: #ff9f0a; }
+
+    section.group-label {
+      max-width: 820px;
+      margin: 30px auto 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      padding-left: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🛒 BeMyShipper — Project Checklist</h1>
+  <p>Buy-For-Me Automation System · Product Extraction API</p>
+  <p class="updated">Last updated: April 7, 2026</p>
+</header>
+
+<div class="summary">
+  <span class="summary-pill pill-done">✅ 12 Items Complete</span>
+  <span class="summary-pill pill-done">⚡ ScraperAPI on all 3 sites</span>
+  <span class="summary-pill pill-todo">🟡 App integration &amp; GitHub push</span>
+</div>
+
+
+<!-- ─── CLIENT REQUIREMENTS / OWNERSHIP ─── -->
+<section class="group-label">📌 Client Requirements &amp; Ownership</section>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num partial">0</div>
+    <div class="phase-title">Ownership, Budget &amp; Milestones (Client Offer)</div>
+    <span class="phase-status-badge badge-partial">⚡ IN PROGRESS</span>
+  </div>
+  <div class="phase-body">
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">All work delivered under BeMyShipper infrastructure<span class="item-note">No personal deployments/accounts; system must be fully transferable</span></div></div>
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Push code to BeMyShipper GitHub organization<span class="item-note">Client-owned repo only (org access required)</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Full documentation required<span class="item-note">Setup, deployment, architecture, and how to extend to new sites</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Budget context captured<span class="item-note">Est. budget: $380 · Milestone 1 funds: $150 · Possible $100 bonus at end for “perfect extraction”</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Milestone 1 definition captured<span class="item-note">Stable extraction for Amazon + Zara + SHEIN, structured output, test UI, real product testing + edge cases</span></div></div>
+  </div>
+</div>
+
+<!-- ─── BACKEND / CORE ─── -->
+<section class="group-label">🔧 Backend &amp; Extraction</section>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num complete">1</div>
+    <div class="phase-title">Core Goal — Buy-For-Me Extraction System</div>
+    <span class="phase-status-badge badge-done">✅ COMPLETE</span>
+  </div>
+  <div class="phase-body">
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">User pastes product URL as input<span class="item-note">Handled by /extract POST endpoint in FastAPI</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Extracts: Title, Main Image, Price, Variants, Product URL<span class="item-note">All fields returned in structured JSON response</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Clean product preview (Test UI)<span class="item-note">frontend.html — renders title, image, price, variants cards</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Replaces manual input with auto-filled product data<span class="item-note">API returns ready-to-use data in app-friendly JSON format</span></div></div>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num complete">2</div>
+    <div class="phase-title">Extraction System — Backend API</div>
+    <span class="phase-status-badge badge-done">✅ COMPLETE</span>
+  </div>
+  <div class="phase-body">
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">FastAPI server with /extract POST endpoint<span class="item-note">main.py — uvicorn server, CORS enabled, Swagger docs at /docs</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Correct JSON output: title, image, price, variants, product_url<span class="item-note">ExtractResponse model with all required fields</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Multi-layer extraction strategy<span class="item-note">Layer 1: HTTP + cookie pre-warm → Layer 2: Anti-Captcha → Layer 3: Playwright stealth</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Retry + fallback logic<span class="item-note">max_retries=3, exponential backoff, alternative selectors</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Variant extraction (size, color, style)<span class="item-note">Variant groups with options returned as structured list</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Price handling: normal, discount, variant-based<span class="item-note">Tries multiple selectors; falls back to variant-based pricing</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Extract by ASIN endpoint (GET /extract/{asin})<span class="item-note">Supports marketplace param: com, co.uk, ca, in, etc.</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Anti-Captcha.com integration<span class="item-note">captcha_solver.py — image CAPTCHA solving with API key</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Diagnostic test script<span class="item-note">test_scraper.py — validates Playwright, HTTP, Anti-Captcha, full flow</span></div></div>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num complete">3</div>
+    <div class="phase-title">Supported Websites</div>
+    <span class="phase-status-badge badge-done">✅ ALL 3 COMPLETE</span>
+  </div>
+  <div class="phase-body">
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Amazon (PRIORITY) — scraper.py<span class="item-note">5-layer strategy: ScraperAPI L0 → HTTP → Anti-Captcha → Playwright → Retry. 85–95% accuracy.</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Zara — zara_scraper.py<span class="item-note">ScraperAPI L0 (bypasses Akamai) → Playwright + XHR interception → HTML fallback.</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">SHEIN — shein_scraper.py<span class="item-note">ScraperAPI L0 (bypasses Cloudflare) → Playwright stealth → window state → HTML DOM.</span></div></div>
+  </div>
+</div>
+
+
+<!-- ─── TESTING ─── -->
+<section class="group-label">🧪 Testing &amp; Reliability</section>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num complete">4</div>
+    <div class="phase-title">Reliability Reporting</div>
+    <span class="phase-status-badge badge-done">✅ COMPLETE</span>
+  </div>
+  <div class="phase-body">
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">% success rate per website (Amazon 90–95%, Zara 80–90%, SHEIN 75–88% with ScraperAPI)<span class="item-note">See RELIABILITY_REPORT.html — rates improve significantly when SCRAPER_API_KEY is set</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">List of ✅ Working URLs per site<span class="item-note">7 Amazon, 5 Zara, 4 SHEIN test URLs documented with results</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">List of ❌ Failed URLs with reasons<span class="item-note">Region locks, Cloudflare, Akamai — all documented with root causes</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Known limitations + improvement plan<span class="item-note">7-item Phase 2 improvement plan with HIGH/MED/LOW priorities</span></div></div>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num complete">5</div>
+    <div class="phase-title">Testing Tool (Web UI)</div>
+    <span class="phase-status-badge badge-done">✅ COMPLETE</span>
+  </div>
+  <div class="phase-body">
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">URL input field + Extract button<span class="item-note">frontend.html — clean Apple-style test interface</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Displays: Title, Image, Price, Variants<span class="item-note">Cards with variant selection UI and loading spinner</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Add SHEIN to the frontend test UI<span class="item-note">SHEIN badge (pink), loading steps, site detection — all updated in frontend.html</span></div></div>
+  </div>
+</div>
+
+
+<!-- ─── FRONTEND / APP ─── -->
+<section class="group-label">📱 App &amp; Frontend Integration</section>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num pending">6</div>
+    <div class="phase-title">Frontend App Integration (Buy-For-Me Flow)</div>
+    <span class="phase-status-badge badge-todo">🟡 TODO</span>
+  </div>
+  <div class="phase-body">
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Document the end-to-end WebView integration approach<span class="item-note">What happens on “Buy For Me”, how URL is captured, where preview renders, and how fields are filled</span></div></div>
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Capture URL when user clicks "Buy For Me"<span class="item-note">Hook into existing WebView app flow</span></div></div>
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Call extraction API and receive JSON product data<span class="item-note">HTTP POST to /extract from app layer</span></div></div>
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Auto-fill: Title, Image, Price, Variants in app UI<span class="item-note">Replace manual entry with auto-populated fields</span></div></div>
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Show product preview inside app<span class="item-note">Clean card UI — no unnecessary info, no shipping restriction messages</span></div></div>
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Allow variant selection + dynamic price update<span class="item-note">Select size/color → price updates in real time</span></div></div>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num pending">7</div>
+    <div class="phase-title">Backend Integration</div>
+    <span class="phase-status-badge badge-todo">🟡 TODO</span>
+  </div>
+  <div class="phase-body">
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Connect extraction API with existing app backend<span class="item-note">Provide integration endpoint details and connection guide</span></div></div>
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Ensure fast response + scalable architecture<span class="item-note">Target: &lt;5s for HTTP, &lt;30s for Playwright/CAPTCHA paths</span></div></div>
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">API stays independent and reusable<span class="item-note">Already architected as standalone FastAPI service — just needs hosting</span></div></div>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num pending">8</div>
+    <div class="phase-title">App Submission (Android + iOS)</div>
+    <span class="phase-status-badge badge-todo">🟡 TODO</span>
+  </div>
+  <div class="phase-body">
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Integrate into existing Android + iOS app (WebView-based)<span class="item-note">Requires access to app repo + coordination with app developer</span></div></div>
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Android app update → Google Play submission<span class="item-note">After integration testing passes</span></div></div>
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">iOS app update → Apple App Store submission<span class="item-note">After integration testing passes</span></div></div>
+  </div>
+</div>
+
+
+<!-- ─── DOCUMENTATION & DELIVERY ─── -->
+<section class="group-label">📦 Documentation &amp; Delivery</section>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num partial">9</div>
+    <div class="phase-title">Delivery Requirements</div>
+    <span class="phase-status-badge badge-partial">⚡ 4 OF 5 DONE</span>
+  </div>
+  <div class="phase-body">
+    <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Push code to client GitHub repository<span class="item-note">Must be pushed to BeMyShipper GitHub organization (no personal accounts) — awaiting org repo access</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Setup guide (how to install and run the API)<span class="item-note">DOCUMENTATION.md — step-by-step for fresh machine setup</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Deployment steps (Railway, Render, VPS)<span class="item-note">All 3 deployment options documented with exact commands</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Architecture explanation + request flow diagram<span class="item-note">Layer-by-layer breakdown of how all 3 scrapers work</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">How to extend to new websites (9-step guide)<span class="item-note">H&amp;M, ASOS, Nike — step-by-step guide + checklist in DOCUMENTATION.md</span></div></div>
+  </div>
+</div>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num complete">11</div>
+    <div class="phase-title">Reporting (Demo + Test Results)</div>
+    <span class="phase-status-badge badge-done">✅ COMPLETE</span>
+  </div>
+  <div class="phase-body">
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Working demo (video or live link)<span class="item-note">Screen recording shows extraction on Amazon, Zara &amp; SHEIN via test UI / API</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Tested URLs list with pass/fail results<span class="item-note">16 URLs tested across 3 sites — see RELIABILITY_REPORT.html</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Failure cases with root cause explanation<span class="item-note">Cloudflare, Akamai, region locks, CAPTCHA — all documented</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Improvement plan for Phase 2<span class="item-note">7 improvements with HIGH/MED/LOW priorities in RELIABILITY_REPORT.html</span></div></div>
+  </div>
+</div>
+
+
+<!-- ─── MILESTONE ─── -->
+<section class="group-label">🏁 Milestone Status</section>
+
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-num complete">M1</div>
+    <div class="phase-title">Milestone 1 — API + Test UI + 3 Sites Working</div>
+    <span class="phase-status-badge badge-done">✅ COMPLETE</span>
+  </div>
+  <div class="phase-body">
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">FastAPI extraction server running — v3.1<span class="item-note">main.py — Swagger docs at /docs. All 3 sites wired.</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Amazon working (priority site)<span class="item-note">ScraperAPI L0 + 4-layer fallback, 90–95% success rate</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Zara working<span class="item-note">ScraperAPI L0 bypasses Akamai WAF + Playwright fallback, 80–90% success rate</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">SHEIN working<span class="item-note">ScraperAPI L0 bypasses Cloudflare + Playwright stealth fallback, 75–88% success rate</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Test UI (frontend.html) with SHEIN support<span class="item-note">Shows title, image, price, variants for all 3 sites</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Real product testing results documented<span class="item-note">RELIABILITY_REPORT.html — 16 URLs tested, success rates, failure cases</span></div></div>
+  </div>
+</div>
+
+</body>
+</html>

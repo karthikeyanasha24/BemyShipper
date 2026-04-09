@@ -1,0 +1,9 @@
+# Python 3.13: use lxml/playwright versions that publish cp313 wheels (older pins force MSVC builds that fail on Windows).
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+requests==2.31.0
+beautifulsoup4==4.12.3
+lxml==6.0.2
+playwright==1.50.0
+pydantic==2.11.7
+python-dotenv==1.0.1
