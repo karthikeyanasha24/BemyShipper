@@ -474,11 +474,26 @@ def extract_structured(request: StructuredExtractRequest):
 
     asin = extract_asin(url)
     if not asin:
+        # ── Graceful fallback: try HTML scraper before giving up ──────────────
+        logger.warning(
+            "Could not extract ASIN from URL '%s'; falling back to HTML scraper.", url
+        )
+        try:
+            amazon_scraper.force_playwright = False
+            fallback = amazon_scraper.extract(url)
+            fallback["site"] = "amazon"
+            fallback["extraction_method"] = "html-fallback"
+            if fallback.get("success") or fallback.get("title"):
+                return fallback
+        except Exception as fb_err:
+            logger.warning("HTML fallback also failed: %s", fb_err)
+
         raise HTTPException(
             status_code=400,
             detail=(
                 "Could not extract ASIN from URL. "
-                "Use a direct Amazon product URL (amazon.com/dp/ASIN)."
+                "Please use a direct Amazon product URL — e.g. amazon.com/dp/B0XXXXXXXX — "
+                "or paste the product link from the Amazon app."
             ),
         )
     asin = asin.strip().upper()

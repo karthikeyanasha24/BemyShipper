@@ -187,16 +187,29 @@ class ProductData:
 # Helpers
 # ---------------------------------------------------------------------------
 def extract_asin(url: str) -> Optional[str]:
-    """Parse ASIN from any Amazon product URL format."""
-    for pattern in [
+    """
+    Parse ASIN from any Amazon product URL format.
+    Supports: /dp/, /product/, /gp/product/, /gp/aw/d/, /exec/obidos/ASIN/,
+              ?asin= / &ASIN=, and bare 10-char ASIN at end of path segment.
+    Matching is case-insensitive; returned ASIN is always uppercased.
+    """
+    patterns = [
+        r"/dp/([A-Z0-9]{10})(?:[/?#&]|$)",
+        r"/product/([A-Z0-9]{10})(?:[/?#&]|$)",
+        r"/gp/product/([A-Z0-9]{10})(?:[/?#&]|$)",
+        r"/gp/aw/d/([A-Z0-9]{10})(?:[/?#&]|$)",          # Mobile / app URL
+        r"/exec/obidos/ASIN/([A-Z0-9]{10})(?:[/?#&]|$)", # Legacy URL format
+        r"[?&](?:asin|ASIN)=([A-Z0-9]{10})(?:[&]|$)",    # Query-string ASIN
+        # Broader fallbacks (no boundary check) in case URL is non-standard
         r"/dp/([A-Z0-9]{10})",
         r"/product/([A-Z0-9]{10})",
         r"/gp/product/([A-Z0-9]{10})",
         r"asin=([A-Z0-9]{10})",
-    ]:
-        match = re.search(pattern, url)
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, url, re.IGNORECASE)
         if match:
-            return match.group(1)
+            return match.group(1).upper()
     return None
 
 

@@ -145,13 +145,13 @@
 <header>
   <h1>🛒 BeMyShipper — Project Checklist</h1>
   <p>Buy-For-Me Automation System · Product Extraction API</p>
-  <p class="updated">Last updated: April 7, 2026</p>
+  <p class="updated">Last updated: April 10, 2026</p>
 </header>
 
 <div class="summary">
-  <span class="summary-pill pill-done">✅ 12 Items Complete</span>
-  <span class="summary-pill pill-done">⚡ ScraperAPI on all 3 sites</span>
-  <span class="summary-pill pill-todo">🟡 App integration &amp; GitHub push</span>
+  <span class="summary-pill pill-done">✅ 16 Items Complete</span>
+  <span class="summary-pill pill-done">⚡ Android local test setup complete</span>
+  <span class="summary-pill pill-todo">🟡 Build + DB blockers remaining</span>
 </div>
 
 
@@ -259,11 +259,15 @@
 
 <div class="phase">
   <div class="phase-header">
-    <div class="phase-num pending">6</div>
+    <div class="phase-num partial">6</div>
     <div class="phase-title">Frontend App Integration (Buy-For-Me Flow)</div>
-    <span class="phase-status-badge badge-todo">🟡 TODO</span>
+    <span class="phase-status-badge badge-wip">⚡ IN PROGRESS</span>
   </div>
   <div class="phase-body">
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Frontend env configured for Android emulator<span class="item-note">API_URL set to http://10.0.2.2:3000 in bemyshipper-frontend/.env</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Android emulator created and running (Pixel 7, API 37 image)<span class="item-note">ADB + emulator tools verified, emulator boots successfully</span></div></div>
+    <div class="item done"><span class="item-icon">✅</span><div class="item-text">Metro bundler running on port 8081<span class="item-note">EADDRINUSE confirms Metro already active (no restart needed)</span></div></div>
+    <div class="item wip"><span class="item-icon">⚡</span><div class="item-text">Android debug build/install in progress<span class="item-note">Blocked by Windows MAX_PATH in CMake/Ninja object paths under OneDrive workspace</span></div></div>
     <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Document the end-to-end WebView integration approach<span class="item-note">What happens on “Buy For Me”, how URL is captured, where preview renders, and how fields are filled</span></div></div>
     <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Capture URL when user clicks "Buy For Me"<span class="item-note">Hook into existing WebView app flow</span></div></div>
     <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Call extraction API and receive JSON product data<span class="item-note">HTTP POST to /extract from app layer</span></div></div>
@@ -275,11 +279,12 @@
 
 <div class="phase">
   <div class="phase-header">
-    <div class="phase-num pending">7</div>
+    <div class="phase-num partial">7</div>
     <div class="phase-title">Backend Integration</div>
-    <span class="phase-status-badge badge-todo">🟡 TODO</span>
+    <span class="phase-status-badge badge-partial">⚡ IN PROGRESS</span>
   </div>
   <div class="phase-body">
+    <div class="item wip"><span class="item-icon">⚡</span><div class="item-text">Nest backend starts in watch mode<span class="item-note">Current blocker: Postgres auth error (DB password/connection config not valid yet)</span></div></div>
     <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Connect extraction API with existing app backend<span class="item-note">Provide integration endpoint details and connection guide</span></div></div>
     <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">Ensure fast response + scalable architecture<span class="item-note">Target: &lt;5s for HTTP, &lt;30s for Playwright/CAPTCHA paths</span></div></div>
     <div class="item todo"><span class="item-icon">🟡</span><div class="item-text">API stays independent and reusable<span class="item-note">Already architected as standalone FastAPI service — just needs hosting</span></div></div>
